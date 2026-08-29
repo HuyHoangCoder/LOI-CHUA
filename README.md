@@ -48,6 +48,16 @@ rồi sửa `DB_PASSWORD` trong `.env` cho khớp mật khẩu `root`.
 - Trang đọc: http://localhost:3000
 - Trang quản trị: http://localhost:3000/admin
 
+## Khi code thay đổi thì phải khởi động lại
+
+Node nạp toàn bộ file `.js` vào bộ nhớ lúc khởi động. Sửa file trên ổ đĩa
+**không** ảnh hưởng tiến trình đang chạy — phải Ctrl+C rồi chạy lại `start.bat`.
+
+Chỗ dễ gây hiểu nhầm: file giao diện `.ejs` và `.css` thì lại được đọc lại mỗi
+lần vẽ trang. Nên có thể **thấy giao diện mới** trong khi **chức năng phía sau
+vẫn là bản cũ** — biểu hiện thường là trang 404 ở một địa chỉ vừa mới thêm.
+Gặp cảnh đó thì khởi động lại trước khi đi tìm lỗi.
+
 ## Chạy test
 
 ```
