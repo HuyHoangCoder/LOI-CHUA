@@ -14,7 +14,7 @@ function docTrang(req) {
   return Number.isFinite(n) && n > 0 ? n : 1;
 }
 
-async function renderDanhSach(req, res, { categoryId, heading, baseUrl }) {
+async function renderDanhSach(req, res, { categoryId, heading, baseUrl, splash = false }) {
   const page = docTrang(req);
   const { rows, total } = await posts.listPublished({ page, perPage: PER_PAGE, categoryId });
   res.render('public/home', {
@@ -24,12 +24,20 @@ async function renderDanhSach(req, res, { categoryId, heading, baseUrl }) {
     page,
     totalPages: Math.max(1, Math.ceil(total / PER_PAGE)),
     baseUrl,
+    splash,
   });
 }
 
 router.get('/', async (req, res, next) => {
   try {
-    await renderDanhSach(req, res, { categoryId: null, heading: null, baseUrl: '/' });
+    // Màn hình chào chỉ có ở trang chủ, và chỉ ở trang đầu — lật sang trang 2
+    // là đang đọc tiếp, không phải vừa vào web.
+    await renderDanhSach(req, res, {
+      categoryId: null,
+      heading: null,
+      baseUrl: '/',
+      splash: docTrang(req) === 1,
+    });
   } catch (err) { next(err); }
 });
 
