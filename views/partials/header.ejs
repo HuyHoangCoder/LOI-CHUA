@@ -7,6 +7,104 @@
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+<% if (locals.splash) { %>
+<div id="splash" aria-hidden="true">
+  <div class="splash-tia"></div>
+  <div class="splash-dom">
+    <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+  </div>
+
+  <div class="splash-noi-dung">
+    <svg class="splash-sach" viewBox="0 0 240 190" role="img"
+         aria-label="Cuốn Kinh Thánh mở có thánh giá">
+      <defs>
+        <radialGradient id="hao-quang" cx="50%" cy="52%" r="50%">
+          <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95"/>
+          <stop offset="55%" stop-color="#dcefff" stop-opacity="0.45"/>
+          <stop offset="100%" stop-color="#dcefff" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient id="trang-trai" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#15385c"/>
+          <stop offset="100%" stop-color="#27618f"/>
+        </linearGradient>
+        <linearGradient id="trang-phai" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#27618f"/>
+          <stop offset="100%" stop-color="#15385c"/>
+        </linearGradient>
+      </defs>
+
+      <!-- quầng sáng sau sách -->
+      <circle cx="120" cy="100" r="86" fill="url(#hao-quang)"/>
+
+      <!-- vòng cung phía trên -->
+      <path d="M52 96 A68 68 0 0 1 188 96" fill="none"
+            stroke="#ffffff" stroke-opacity="0.75" stroke-width="1.6"/>
+
+      <!-- nhánh lá trái -->
+      <g fill="#e8f1f6" fill-opacity="0.9">
+        <path d="M56 92 C44 104 40 122 44 140" fill="none"
+              stroke="#e8f1f6" stroke-opacity="0.85" stroke-width="1.6"/>
+        <ellipse cx="46" cy="104" rx="8" ry="4" transform="rotate(-38 46 104)"/>
+        <ellipse cx="42" cy="118" rx="8" ry="4" transform="rotate(-20 42 118)"/>
+        <ellipse cx="42" cy="132" rx="7" ry="3.5" transform="rotate(-6 42 132)"/>
+        <ellipse cx="57" cy="99" rx="7" ry="3.5" transform="rotate(-52 57 99)"/>
+      </g>
+      <!-- nhánh lá phải -->
+      <g fill="#e8f1f6" fill-opacity="0.9">
+        <path d="M184 92 C196 104 200 122 196 140" fill="none"
+              stroke="#e8f1f6" stroke-opacity="0.85" stroke-width="1.6"/>
+        <ellipse cx="194" cy="104" rx="8" ry="4" transform="rotate(38 194 104)"/>
+        <ellipse cx="198" cy="118" rx="8" ry="4" transform="rotate(20 198 118)"/>
+        <ellipse cx="198" cy="132" rx="7" ry="3.5" transform="rotate(6 198 132)"/>
+        <ellipse cx="183" cy="99" rx="7" ry="3.5" transform="rotate(52 183 99)"/>
+      </g>
+
+      <!-- bóng dưới sách -->
+      <ellipse cx="120" cy="156" rx="60" ry="6" fill="#1b4a75" fill-opacity="0.12"/>
+
+      <!-- hai trang sách -->
+      <path d="M120 62 C104 52 84 50 66 54 L66 140 C84 136 104 138 120 148 Z"
+            fill="url(#trang-trai)"/>
+      <path d="M120 62 C136 52 156 50 174 54 L174 140 C156 136 136 138 120 148 Z"
+            fill="url(#trang-phai)"/>
+      <!-- mép trang màu vàng nhạt -->
+      <path d="M66 54 L66 140 C84 136 104 138 120 148 L120 152 C104 142 84 140 62 145 Z"
+            fill="#e6cf9c"/>
+      <path d="M174 54 L174 140 C156 136 136 138 120 148 L120 152 C136 142 156 140 178 145 Z"
+            fill="#e6cf9c"/>
+      <!-- gáy sách -->
+      <path d="M120 62 L120 148" stroke="#0e2b47" stroke-width="2.4"/>
+
+      <!-- thánh giá -->
+      <g fill="#ffffff">
+        <rect x="116.4" y="76" width="7.2" height="56" rx="1.6"/>
+        <rect x="102" y="94" width="36" height="7.2" rx="1.6"/>
+      </g>
+      <!-- tia sáng quanh thánh giá -->
+      <g stroke="#ffffff" stroke-opacity="0.6" stroke-width="1.3" stroke-linecap="round">
+        <line x1="120" y1="66" x2="120" y2="72"/>
+        <line x1="99"  y1="76" x2="103" y2="81"/>
+        <line x1="141" y1="76" x2="137" y2="81"/>
+        <line x1="93"  y1="98" x2="99"  y2="98"/>
+        <line x1="147" y1="98" x2="141" y2="98"/>
+      </g>
+    </svg>
+
+    <h1 class="splash-ten">LỜI CHÚA</h1>
+    <p class="splash-phu">Mỗi ngày với Lời Hằng Sống</p>
+
+    <blockquote class="splash-cau">
+      <p>“Lời Chúa là ngọn đèn cho chân tôi,<br>là ánh sáng cho đường lối tôi.”</p>
+      <cite>(Thi Thiên 119:105)</cite>
+    </blockquote>
+
+    <div class="splash-tai">
+      <span class="splash-vong"></span>
+      <span class="splash-chu-tai">Đang tải…</span>
+    </div>
+  </div>
+</div>
+<% } %>
 <header class="site-header">
   <div class="wrap header-inner">
     <a class="brand" href="/">✝ Lời Chúa</a>
