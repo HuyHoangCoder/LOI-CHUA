@@ -1,0 +1,1 @@
+https://www.bible.com/vi/bible/193/ISA.1.VIE1925?parallel=193

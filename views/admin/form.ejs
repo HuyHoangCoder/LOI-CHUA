@@ -1,0 +1,56 @@
+<%- include('../partials/admin-header') %>
+<h1><%= post.id ? 'Sửa bài viết' : 'Viết bài mới' %></h1>
+
+<% if (error) { %><p class="error"><%= error %></p><% } %>
+
+<form method="post" action="<%= post.id ? '/admin/bai-viet/' + post.id : '/admin/bai-viet' %>"
+      enctype="multipart/form-data" class="post-form">
+  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+  <label for="title">Tiêu đề</label>
+  <input type="text" id="title" name="title" value="<%= post.title || '' %>" autofocus>
+
+  <label for="category_id">Chủ đề</label>
+  <select id="category_id" name="category_id">
+    <option value="">— Không chọn —</option>
+    <% categories.forEach(function (c) { %>
+      <option value="<%= c.id %>" <%= String(post.category_id) === String(c.id) ? 'selected' : '' %>>
+        <%= c.name %>
+      </option>
+    <% }); %>
+  </select>
+
+  <fieldset>
+    <legend>Câu Kinh Thánh (không bắt buộc)</legend>
+    <label for="verse_ref">Nguồn</label>
+    <input type="text" id="verse_ref" name="verse_ref" placeholder="Ê-sai 1:18"
+           value="<%= post.verse_ref || '' %>">
+    <label for="verse_text">Nội dung câu</label>
+    <textarea id="verse_text" name="verse_text" rows="3"><%= post.verse_text || '' %></textarea>
+  </fieldset>
+
+  <label for="body">Nội dung bài</label>
+  <p class="hint">Gõ bình thường. Enter 2 lần để sang đoạn mới.</p>
+  <textarea id="body" name="body" rows="20"><%= post.body || '' %></textarea>
+
+  <label for="cover_image">Ảnh bìa (JPG/PNG/WEBP, tối đa 5MB)</label>
+  <% if (post.cover_image) { %>
+    <div class="cover-preview">
+      <img src="/uploads/<%= post.cover_image %>" alt="Ảnh bìa hiện tại">
+      <label class="checkbox">
+        <input type="checkbox" name="remove_cover" value="1"> Xóa ảnh bìa này
+      </label>
+    </div>
+  <% } %>
+  <input type="file" id="cover_image" name="cover_image" accept="image/jpeg,image/png,image/webp">
+
+  <div class="form-actions">
+    <button type="submit" name="status" value="draft" class="secondary">Lưu nháp</button>
+    <button type="submit" name="status" value="published">Đăng bài</button>
+    <% if (post.slug) { %>
+      <a class="link" href="/bai-viet/<%= post.slug %>" target="_blank" rel="noopener">Xem thử ↗</a>
+    <% } %>
+    <a class="link" href="/admin">Hủy</a>
+  </div>
+</form>
+<%- include('../partials/admin-footer') %>

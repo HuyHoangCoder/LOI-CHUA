@@ -1,0 +1,42 @@
+<%- include('../partials/admin-header') %>
+<div class="page-head">
+  <h1>Bài viết</h1>
+  <a class="button" href="/admin/bai-viet/moi">+ Viết bài mới</a>
+</div>
+
+<% if (flash) { %><p class="flash"><%= flash %></p><% } %>
+
+<% if (posts.length === 0) { %>
+  <p class="empty">Chưa có bài viết nào. Bấm “Viết bài mới” để bắt đầu.</p>
+<% } else { %>
+<table class="admin-table">
+  <thead>
+    <tr><th>Tiêu đề</th><th>Chủ đề</th><th>Ngày</th><th>Trạng thái</th><th></th></tr>
+  </thead>
+  <tbody>
+  <% posts.forEach(function (p) { %>
+    <tr>
+      <td><a href="/admin/bai-viet/<%= p.id %>/sua"><%= p.title %></a></td>
+      <td><%= p.category_name || '—' %></td>
+      <td><%= new Date(p.created_at).toLocaleDateString('vi-VN') %></td>
+      <td>
+        <% if (p.status === 'published') { %>
+          <span class="badge published">● Đã đăng</span>
+        <% } else { %>
+          <span class="badge draft">○ Nháp</span>
+        <% } %>
+      </td>
+      <td class="actions">
+        <a href="/admin/bai-viet/<%= p.id %>/sua">Sửa</a>
+        <form method="post" action="/admin/bai-viet/<%= p.id %>/xoa" class="inline"
+              onsubmit="return confirm('Xóa bài “<%= p.title %>”? Không khôi phục lại được.');">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <button type="submit" class="link-button danger">Xóa</button>
+        </form>
+      </td>
+    </tr>
+  <% }); %>
+  </tbody>
+</table>
+<% } %>
+<%- include('../partials/admin-footer') %>

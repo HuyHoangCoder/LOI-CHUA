@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><%= title %> · Lời Chúa</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="/">✝ Lời Chúa</a>
+    <nav class="site-nav">
+      <a href="/">Trang chủ</a>
+      <% navCategories.forEach(function (c) { %>
+        <a href="/chu-de/<%= c.slug %>"><%= c.name %></a>
+      <% }); %>
+    </nav>
+  </div>
+</header>
+<main>

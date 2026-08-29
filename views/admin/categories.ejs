@@ -1,0 +1,42 @@
+<%- include('../partials/admin-header') %>
+<h1>Chủ đề</h1>
+
+<% if (error) { %><p class="error"><%= error %></p><% } %>
+<% if (flash) { %><p class="flash"><%= flash %></p><% } %>
+
+<form method="post" action="/admin/chu-de" class="inline-form">
+  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+  <input type="text" name="name" placeholder="Tên chủ đề mới" value="<%= newName || '' %>">
+  <button type="submit">Thêm</button>
+</form>
+
+<% if (items.length === 0) { %>
+  <p class="empty">Chưa có chủ đề nào.</p>
+<% } else { %>
+<table class="admin-table">
+  <thead><tr><th>Tên</th><th>Địa chỉ</th><th>Số bài</th><th></th></tr></thead>
+  <tbody>
+  <% items.forEach(function (c) { %>
+    <tr>
+      <td>
+        <form method="post" action="/admin/chu-de/<%= c.id %>" class="inline-form">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <input type="text" name="name" value="<%= c.name %>">
+          <button type="submit" class="link-button">Lưu</button>
+        </form>
+      </td>
+      <td><code>/chu-de/<%= c.slug %></code></td>
+      <td><%= c.postCount %></td>
+      <td class="actions">
+        <form method="post" action="/admin/chu-de/<%= c.id %>/xoa" class="inline"
+              onsubmit="return confirm('Xóa chủ đề “<%= c.name %>”?');">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+          <button type="submit" class="link-button danger">Xóa</button>
+        </form>
+      </td>
+    </tr>
+  <% }); %>
+  </tbody>
+</table>
+<% } %>
+<%- include('../partials/admin-footer') %>

@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><%= title %> · Quản trị</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="admin">
+<header class="admin-header">
+  <div class="wrap">
+    <a class="brand" href="/admin">Quản trị</a>
+    <nav>
+      <a href="/admin">Bài viết</a>
+      <a href="/admin/chu-de">Chủ đề</a>
+      <a href="/" target="_blank" rel="noopener">Xem trang web ↗</a>
+      <form method="post" action="/admin/dang-xuat" class="inline">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        <button type="submit" class="link-button">Đăng xuất</button>
+      </form>
+    </nav>
+  </div>
+</header>
+<main class="wrap admin-main">

@@ -1,0 +1,46 @@
+<%- include('../partials/header') %>
+<article class="reader">
+  <% if (post.status === 'draft') { %>
+    <p class="draft-banner">Bài này đang là bản nháp — chỉ bạn nhìn thấy.</p>
+  <% } %>
+
+  <% if (post.cover_image) { %>
+    <img class="cover" src="/uploads/<%= post.cover_image %>" alt="">
+  <% } %>
+
+  <header class="reader-head">
+    <h1><%= post.title %></h1>
+    <p class="meta">
+      <% if (post.category_name) { %>
+        <a href="/chu-de/<%= post.category_slug %>"><%= post.category_name %></a> ·
+      <% } %>
+      <%= new Date(post.created_at).toLocaleDateString('vi-VN') %>
+    </p>
+    <div class="font-controls">
+      <button type="button" id="font-smaller" aria-label="Giảm cỡ chữ">A−</button>
+      <button type="button" id="font-larger" aria-label="Tăng cỡ chữ">A+</button>
+    </div>
+  </header>
+
+  <% if (post.verse_text || post.verse_ref) { %>
+    <blockquote class="verse">
+      <% if (post.verse_text) { %><p><%= post.verse_text %></p><% } %>
+      <% if (post.verse_ref) { %><cite>— <%= post.verse_ref %></cite><% } %>
+    </blockquote>
+  <% } %>
+
+  <div class="prose" id="prose">
+    <% paragraphs.forEach(function (p) { %><p><%= p %></p><% }); %>
+  </div>
+
+  <nav class="post-nav">
+    <% if (prev) { %>
+      <a class="prev" href="/bai-viet/<%= prev.slug %>">‹ <%= prev.title %></a>
+    <% } else { %><span></span><% } %>
+    <% if (next) { %>
+      <a class="next" href="/bai-viet/<%= next.slug %>"><%= next.title %> ›</a>
+    <% } %>
+  </nav>
+</article>
+<script src="/js/fontsize.js"></script>
+<%- include('../partials/footer') %>

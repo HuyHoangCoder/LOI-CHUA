@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Đăng nhập · Quản trị</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="admin login-page">
+  <form method="post" action="/admin/dang-nhap" class="login-box">
+    <h1>Đăng nhập quản trị</h1>
+    <% if (error) { %><p class="error"><%= error %></p><% } %>
+    <label for="password">Mật khẩu</label>
+    <input type="password" id="password" name="password" autofocus required>
+    <button type="submit">Vào</button>
+    <p class="hint"><a href="/">← Về trang đọc</a></p>
+  </form>
+</body>
+</html>
