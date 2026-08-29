@@ -2,6 +2,7 @@
 const express = require('express');
 const posts = require('../models/posts');
 const categories = require('../models/categories');
+const { timKiem, chuanHoa } = require('../models/search');
 const { toParagraphs, excerpt } = require('../lib/text');
 const { isLoggedIn } = require('../lib/auth');
 
@@ -48,6 +49,26 @@ router.get('/chu-de/:slug', async (req, res, next) => {
       categoryId: cat.id,
       heading: cat.name,
       baseUrl: `/chu-de/${cat.slug}`,
+    });
+  } catch (err) { next(err); }
+});
+
+router.get('/tim-kiem', async (req, res, next) => {
+  try {
+    const tuKhoa = chuanHoa(req.query.q);
+    if (!tuKhoa) return res.redirect('/');
+
+    const page = docTrang(req);
+    const { rows, total, chuDeKhop } = await timKiem({ tuKhoa, page, perPage: PER_PAGE });
+
+    res.render('public/search', {
+      title: `Kết quả cho “${tuKhoa}”`,
+      tuKhoa,
+      items: rows.map((p) => ({ ...p, excerpt: excerpt(p.body) })),
+      total,
+      chuDeKhop,
+      page,
+      totalPages: Math.max(1, Math.ceil(total / PER_PAGE)),
     });
   } catch (err) { next(err); }
 });
