@@ -339,8 +339,74 @@ button:hover { background: var(--nhan); color: #fff; }
 .login-box .hint { margin: 18px 0 0; font-size: 13px; text-align: center; }
 .login-box .hint a { color: var(--chu-nhat); }
 
+/* ===== Thanh tìm kiếm ===== */
+.search-form {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  flex: 0 1 300px;
+}
+.search-input {
+  width: 100%;
+  font: inherit;
+  font-size: 14px;
+  padding: 8px 38px 8px 16px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: #f0eee9;
+  color: var(--chu);
+  outline: none;
+}
+.search-input::placeholder { color: #9a948a; }
+.search-input:focus {
+  border-color: var(--vien);
+  background: #fff;
+}
+.search-input::-webkit-search-cancel-button { cursor: pointer; }
+
+.search-button {
+  position: absolute;
+  right: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--chu-nhat);
+  cursor: pointer;
+}
+.search-button:hover { background: rgba(0, 0, 0, 0.06); color: var(--nhan); }
+
+/* ===== Trang kết quả tìm kiếm ===== */
+.search-count { margin: 0 0 18px; font-size: 14px; color: var(--chu-nhat); }
+
+.chu-de-khop {
+  margin: 0 0 8px;
+  font-size: 14px;
+  color: var(--chu-nhat);
+}
+.chip {
+  display: inline-block;
+  margin: 0 6px 6px 0;
+  padding: 4px 12px;
+  border: 1px solid var(--vien);
+  border-radius: 999px;
+  font-size: 13px;
+  text-decoration: none;
+  background: #fff;
+}
+.chip:hover { border-color: var(--nhan); color: var(--nhan); }
+
 /* ===== Màn hình hẹp ===== */
 @media (max-width: 640px) {
+  .header-inner { flex-wrap: wrap; height: auto; padding-top: 10px; padding-bottom: 10px; }
+  .search-form { flex: 1 0 100%; margin-left: 0; order: 3; }
   .post-card { flex-direction: column; gap: 12px; }
   .post-card .thumb, .post-card .thumb img { width: 100%; flex: none; }
   .post-card .thumb img { height: 180px; }

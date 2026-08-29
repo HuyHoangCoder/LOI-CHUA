@@ -1,0 +1,66 @@
+<%- include('../partials/header') %>
+<div class="wrap">
+  <h1 class="list-heading">Kết quả cho “<%= tuKhoa %>”</h1>
+
+  <% if (total > 0) { %>
+    <p class="search-count">Tìm thấy <%= total %> bài viết</p>
+  <% } %>
+
+  <% if (chuDeKhop.length > 0) { %>
+    <p class="chu-de-khop">
+      Chủ đề khớp:
+      <% chuDeKhop.forEach(function (c) { %>
+        <a class="chip" href="/chu-de/<%= c.slug %>"><%= c.name %></a>
+      <% }); %>
+    </p>
+  <% } %>
+
+  <% if (items.length === 0) { %>
+    <p class="empty">
+      Không tìm thấy bài viết nào.<br>
+      Thử bỏ bớt từ, hoặc xem <a href="/">toàn bộ bài viết</a>.
+    </p>
+  <% } %>
+
+  <ul class="post-list">
+  <% items.forEach(function (p) { %>
+    <li class="post-card">
+      <% if (p.cover_image) { %>
+        <a class="thumb" href="/bai-viet/<%= p.slug %>">
+          <img src="/uploads/<%= p.cover_image %>" alt="">
+        </a>
+      <% } %>
+      <div class="card-body">
+        <h2><a href="/bai-viet/<%= p.slug %>"><%= p.title %></a></h2>
+        <p class="meta">
+          <% if (p.category_name) { %>
+            <a href="/chu-de/<%= p.category_slug %>"><%= p.category_name %></a> ·
+          <% } %>
+          <%= new Date(p.created_at).toLocaleDateString('vi-VN') %>
+        </p>
+        <p class="excerpt"><%= p.excerpt %></p>
+      </div>
+    </li>
+  <% }); %>
+  </ul>
+
+  <% if (totalPages > 1) { %>
+  <nav class="pagination">
+    <% const goc = '/tim-kiem?q=' + encodeURIComponent(tuKhoa); %>
+    <% if (page > 1) { %>
+      <a href="<%= goc + '&trang=' + (page - 1) %>">‹ Trước</a>
+    <% } %>
+    <% for (let i = 1; i <= totalPages; i += 1) { %>
+      <% if (i === page) { %>
+        <span class="current"><%= i %></span>
+      <% } else { %>
+        <a href="<%= goc + '&trang=' + i %>"><%= i %></a>
+      <% } %>
+    <% } %>
+    <% if (page < totalPages) { %>
+      <a href="<%= goc + '&trang=' + (page + 1) %>">Sau ›</a>
+    <% } %>
+  </nav>
+  <% } %>
+</div>
+<%- include('../partials/footer') %>
