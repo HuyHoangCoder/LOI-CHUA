@@ -133,10 +133,79 @@ a:hover { color: var(--nhan); }
   color: var(--chu-nhat);
   border-radius: 4px;
   padding: 3px 10px;
+  min-height: 26px;   /* đủ 24px vùng bấm theo WCAG 2.5.8 */
   cursor: pointer;
   font-size: 13px;
 }
 .font-controls button:hover { border-color: var(--chu); color: var(--chu); background: transparent; }
+
+/* ===== Nút nghe bài ===== */
+.font-controls .nut-doc {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 30px;
+  padding: 3px 8px;
+}
+/* display của mình là author style nên thắng cả [hidden]{display:none} của trình
+   duyệt — thiếu dòng này thì thuộc tính hidden trên nút coi như không có. */
+.font-controls .nut-doc[hidden] { display: none; }
+.nut-doc .than-loa { fill: currentColor; }
+.nut-doc .song { fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; }
+.nut-doc .dau-dung rect { fill: currentColor; }
+
+.nut-doc[data-trang-thai="dung"] .song { display: none; }
+.nut-doc:not([data-trang-thai="dung"]) .dau-dung { display: none; }
+
+.font-controls .nut-doc[data-trang-thai="doc"] { color: var(--nhan); border-color: var(--nhan); }
+.font-controls .nut-doc:disabled { opacity: .45; cursor: default; }
+.font-controls .nut-doc:disabled:hover { border-color: var(--vien); color: var(--chu-nhat); }
+
+@keyframes song-dap { 0%, 100% { opacity: .25; } 50% { opacity: 1; } }
+.nut-doc[data-trang-thai="doc"] .song-1 { animation: song-dap 1.1s ease-in-out infinite; }
+.nut-doc[data-trang-thai="doc"] .song-2 { animation: song-dap 1.1s ease-in-out .3s infinite; }
+
+.nut-doc-ghi-chu { margin: 10px 0 0; font-size: 13px; color: var(--chu-nhat); }
+
+/* Đang đọc thì các đoạn khác lùi xuống xám. Dùng màu cụ thể chứ không dùng opacity:
+   opacity trộn chữ vào nền nên tụt chuẩn tương phản rất nhanh (0.45 chỉ còn 2,77:1),
+   còn #6f6d6a đo được 5,03:1 — đạt WCAG AA ở mọi đoạn. Riêng dòng trích dẫn nguồn
+   vốn đã xám sẵn nên để nguyên, chỉ đậm lên khi tới lượt nó. */
+.reader.dang-doc .reader-head h1,
+.reader.dang-doc .verse p,
+.reader.dang-doc #prose p { color: #6f6d6a; }
+.reader.dang-doc .reader-head h1,
+.reader.dang-doc .verse p,
+.reader.dang-doc .verse cite,
+.reader.dang-doc #prose p { transition: color .3s ease; }
+
+.reader.dang-doc .reader-head h1.khoi-dang-doc,
+.reader.dang-doc .verse cite.khoi-dang-doc,
+.reader.dang-doc #prose p.khoi-dang-doc { color: var(--chu); }
+.reader.dang-doc .verse p.khoi-dang-doc { color: inherit; }
+
+.chi-doc-man-hinh {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  clip-path: inset(50%);
+}
+
+/* Bớt chuyển động thì bỏ hiệu ứng, nhưng vẫn giữ sóng âm sáng rõ để còn biết
+   là đang đọc. */
+@media (prefers-reduced-motion: reduce) {
+  .nut-doc[data-trang-thai="doc"] .song-1,
+  .nut-doc[data-trang-thai="doc"] .song-2 { animation: none; opacity: 1; }
+  .reader.dang-doc .reader-head h1,
+  .reader.dang-doc .verse p,
+  .reader.dang-doc .verse cite,
+  .reader.dang-doc #prose p { transition: none; }
+}
 
 .verse {
   margin: 0 0 32px;

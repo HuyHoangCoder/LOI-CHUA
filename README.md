@@ -94,6 +94,6 @@ docker exec -i loichua-mysql mysql -uroot -ploichua loi_chua < sao-luu.sql
 | `routes/public.js` | Trang chủ, đọc bài, chủ đề |
 | `routes/admin.js` | Đăng nhập, CRUD bài, chủ đề |
 | `views/` | Giao diện EJS |
-| `public/css`, `public/js` | CSS và nút chỉnh cỡ chữ |
+| `public/css`, `public/js` | CSS, nút chỉnh cỡ chữ, nút nghe bài |
 | `uploads/` | Ảnh đã tải lên |
 | `docs/superpowers/` | Tài liệu thiết kế và kế hoạch |
