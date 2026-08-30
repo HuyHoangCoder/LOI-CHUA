@@ -46,6 +46,24 @@ test('đọc được bài đã đăng, nội dung tách thành đoạn', async 
   assert.match(res.text, /Ê-sai 1:18/);
 });
 
+test('trang đọc bài có nút nghe và script kèm theo', async (t) => {
+  if (!(await chuanBi(t))) return;
+  await posts.create({ title: 'Bài để nghe', body: 'Một đoạn.', status: 'published' });
+
+  const res = await request(createApp()).get('/bai-viet/bai-de-nghe');
+  assert.strictEqual(res.status, 200);
+  assert.match(res.text, /src="\/js\/doc-to\.js"/);
+  assert.match(res.text, /id="nut-doc-bao" role="status"/);
+
+  // Nút phải vừa ẩn vừa khoá sẵn: chỉ script mới được mở nó ra, và chỉ sau khi đã
+  // dò xong giọng đọc. Bắt đúng trong thẻ mở của nút, đừng để khớp nhầm sang
+  // aria-hidden của thẻ svg bên trong.
+  const the = res.text.match(/<button[^>]*id="nut-doc"[^>]*>/);
+  assert.ok(the, 'không thấy thẻ mở của nút nghe bài');
+  assert.match(the[0], /\shidden[\s>]/);
+  assert.match(the[0], /\sdisabled[\s>]/);
+});
+
 test('bài nháp trả 404 với khách, nhưng xem được khi đã đăng nhập', async (t) => {
   if (!(await chuanBi(t))) return;
   await posts.create({ title: 'Bài còn nháp', body: 'x', status: 'draft' });

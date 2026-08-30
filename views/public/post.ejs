@@ -19,7 +19,24 @@
     <div class="font-controls">
       <button type="button" id="font-smaller" aria-label="Giảm cỡ chữ">A−</button>
       <button type="button" id="font-larger" aria-label="Tăng cỡ chữ">A+</button>
+      <button type="button" id="nut-doc" class="nut-doc" data-trang-thai="nghi"
+              aria-label="Nghe bài này" hidden disabled>
+        <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true" focusable="false">
+          <path class="than-loa" d="M3.5 9.3h3.6L11.8 5.4v13.2L7.1 14.7H3.5z"/>
+          <path class="song song-1" d="M15.1 9.3a4 4 0 0 1 0 5.4"/>
+          <path class="song song-2" d="M17.9 7a7.6 7.6 0 0 1 0 10"/>
+          <g class="dau-dung">
+            <rect x="15" y="8.4" width="1.9" height="7.2" rx=".95"/>
+            <rect x="18.6" y="8.4" width="1.9" height="7.2" rx=".95"/>
+          </g>
+        </svg>
+        <span class="chi-doc-man-hinh" id="nut-doc-ten">Nghe bài này</span>
+      </button>
     </div>
+    <p class="nut-doc-ghi-chu" id="nut-doc-ghi-chu" hidden>
+      Máy này chưa cài giọng đọc tiếng Việt nên chưa nghe được.
+    </p>
+    <span class="chi-doc-man-hinh" id="nut-doc-bao" role="status"></span>
   </header>
 
   <% if (post.verse_text || post.verse_ref) { %>
@@ -43,4 +60,5 @@
   </nav>
 </article>
 <script src="/js/fontsize.js"></script>
+<script src="/js/doc-to.js"></script>
 <%- include('../partials/footer') %>
